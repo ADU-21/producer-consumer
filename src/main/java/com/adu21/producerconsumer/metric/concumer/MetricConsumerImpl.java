@@ -1,4 +1,4 @@
-package com.adu21.producerconsumer.service;
+package com.adu21.producerconsumer.metric.concumer;
 
 import java.util.List;
 

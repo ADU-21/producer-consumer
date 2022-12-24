@@ -1,4 +1,4 @@
-package com.adu21.producerconsumer.service;
+package com.adu21.producerconsumer.metric;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -9,6 +9,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
 import java.util.stream.IntStream;
 
+import com.adu21.producerconsumer.metric.concumer.MetricConsumer;
 import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

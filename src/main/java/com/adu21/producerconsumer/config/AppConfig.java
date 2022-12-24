@@ -2,9 +2,9 @@ package com.adu21.producerconsumer.config;
 
 import java.util.concurrent.Executors;
 
-import com.adu21.producerconsumer.service.MetricConsumer;
-import com.adu21.producerconsumer.service.MetricConsumerImpl;
-import com.adu21.producerconsumer.service.MetricDistributor;
+import com.adu21.producerconsumer.metric.concumer.MetricConsumer;
+import com.adu21.producerconsumer.metric.concumer.MetricConsumerImpl;
+import com.adu21.producerconsumer.metric.MetricDistributor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 

@@ -1,5 +1,6 @@
-package com.adu21.producerconsumer.service;
+package com.adu21.producerconsumer.metric.observer;
 
+import com.adu21.producerconsumer.metric.MetricDistributor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
