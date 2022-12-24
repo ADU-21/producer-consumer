@@ -13,3 +13,9 @@ git clone https://github.com/ADU-21/producer-consumer.git
 cd producer-consumer
 ./gradlew bootRun
 ```
+
+# Run test
+
+```bash
+for q in {1,2,3}; do ( ab -n 5 localhost:8080/search?q=query$q &>/dev/null & ); done
+```
