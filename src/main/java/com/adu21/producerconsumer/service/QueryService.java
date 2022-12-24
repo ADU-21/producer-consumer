@@ -1,5 +1,7 @@
 package com.adu21.producerconsumer.service;
 
+import lombok.Builder;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 
@@ -10,9 +12,14 @@ import org.springframework.stereotype.Service;
 
 @Service
 @Slf4j
+@RequiredArgsConstructor
 public class QueryService {
+
+    private final QueryObserver queryObserver;
+
     public String query(String query) {
         log.info(query);
+        queryObserver.update(query);
         return query;
     }
 }
