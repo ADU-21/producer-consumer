@@ -6,6 +6,7 @@ import com.adu21.producerconsumer.metric.MetricDistributor;
 import com.adu21.producerconsumer.metric.concumer.MetricConsumer;
 import com.adu21.producerconsumer.metric.concumer.MetricConsumerImpl;
 import com.adu21.producerconsumer.metric.counter.MetricCounter;
+import com.adu21.producerconsumer.metric.writer.StaticsWriter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -23,10 +24,11 @@ public class AppConfig {
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    MetricConsumer metricConsumer(MetricCounter metricCounter) {
+    MetricConsumer metricConsumer(MetricCounter metricCounter, StaticsWriter staticsWriter) {
         return MetricConsumerImpl.builder()
             .scheduledExecutorService(Executors.newSingleThreadScheduledExecutor())
             .metricCounter(metricCounter)
+            .staticsWriter(staticsWriter)
             .build();
     }
 
