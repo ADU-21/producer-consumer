@@ -9,10 +9,13 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @RequiredArgsConstructor
-public class QueryObserver {
+public class QueryObserver implements MetricObserver {
+
+    private static final String QUERY_METRIC_PREFIX = "Query:";
     private final MetricDistributor metricDistributor;
 
+    @Override
     public void update(String query) {
-        metricDistributor.enqueue(query);
+        metricDistributor.enqueue(QUERY_METRIC_PREFIX + query);
     }
 }

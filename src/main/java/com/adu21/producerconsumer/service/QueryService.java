@@ -13,13 +13,11 @@ import org.springframework.stereotype.Service;
 @Slf4j
 @RequiredArgsConstructor
 public class QueryService {
-
-    // This can be extension point for accept different types of metrics with metadata like ops
-    private final QueryObserver queryObserver;
+    private final MetricObserver metricObserver;
 
     public String query(String query) {
         log.info(query);
-        queryObserver.update(query);
+        metricObserver.update(query);
         return query;
     }
 }
