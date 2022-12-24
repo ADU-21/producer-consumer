@@ -53,7 +53,7 @@ public class MetricDistributor {
 
     public boolean enqueue(String query) {
         if (!serviceIsScheduled.get()) {
-            log.error("Invocation of enqueue occurred before MetricDistributor was scheduled");
+            log.error("Failed enqueue metric before distributor thread scheduled!");
             return false;
         }
 

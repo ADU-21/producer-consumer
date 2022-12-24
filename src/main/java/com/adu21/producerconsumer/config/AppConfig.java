@@ -2,9 +2,10 @@ package com.adu21.producerconsumer.config;
 
 import java.util.concurrent.Executors;
 
+import com.adu21.producerconsumer.metric.MetricDistributor;
 import com.adu21.producerconsumer.metric.concumer.MetricConsumer;
 import com.adu21.producerconsumer.metric.concumer.MetricConsumerImpl;
-import com.adu21.producerconsumer.metric.MetricDistributor;
+import com.adu21.producerconsumer.metric.counter.MetricCounter;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -22,8 +23,11 @@ public class AppConfig {
     }
 
     @Bean(initMethod = "start", destroyMethod = "stop")
-    MetricConsumer metricConsumer() {
-        return new MetricConsumerImpl();
+    MetricConsumer metricConsumer(MetricCounter metricCounter) {
+        return MetricConsumerImpl.builder()
+            .scheduledExecutorService(Executors.newSingleThreadScheduledExecutor())
+            .metricCounter(metricCounter)
+            .build();
     }
 
 }
