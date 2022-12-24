@@ -16,7 +16,7 @@ public class QueryService {
     private final MetricObserver metricObserver;
 
     public String query(String query) {
-        log.info(query);
+        //log.info(query);
         metricObserver.update(query);
         return query;
     }

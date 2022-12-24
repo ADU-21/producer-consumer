@@ -17,5 +17,5 @@ cd producer-consumer
 # Run test
 
 ```bash
-for q in {1,2,3}; do ( ab -n 5 localhost:8080/search?q=$q 1>/dev/null & ); done
+for q in {A..C}; do ( ab -n 5 localhost:8080/search?q=$q 1>/dev/null & ); done
 ```

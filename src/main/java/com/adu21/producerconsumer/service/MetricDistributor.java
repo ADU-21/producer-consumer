@@ -1,11 +1,15 @@
 package com.adu21.producerconsumer.service;
 
+import java.util.LinkedList;
+import java.util.List;
 import java.util.concurrent.ConcurrentLinkedQueue;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.Semaphore;
 import java.util.concurrent.TimeUnit;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.stream.IntStream;
 
+import io.micrometer.common.util.StringUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -30,6 +34,8 @@ public class MetricDistributor {
     private final ConcurrentLinkedQueue<String> metricQueue = new ConcurrentLinkedQueue<>();
     // counter of metrics, avoid call O(N) linkedQueue.size()
     private final Semaphore queueItemSemaphore = new Semaphore(0);
+
+    private final List<MetricConsumer> metricConsumers = new LinkedList<>();
 
     public void start() {
         log.info("MetricDistributor start");
@@ -60,7 +66,18 @@ public class MetricDistributor {
         return false;
     }
 
+    public void addConsumer(MetricConsumer metricConsumer) {
+        metricConsumers.add(metricConsumer);
+    }
+
+    /**
+     * This method blocks until the number of permits in the semaphore is greater than 0.
+     */
     private void updateConsumers() {
-        // update metrics in consumers
+        queueItemSemaphore.acquireUninterruptibly();
+        int numberOfItemsToPoll = queueItemSemaphore.drainPermits();
+        List<String> metrics = IntStream.rangeClosed(0, numberOfItemsToPoll).mapToObj(i -> metricQueue.poll())
+            .filter(StringUtils::isNotEmpty).toList();
+        metricConsumers.forEach(consumer -> consumer.consume(metrics));
     }
 }
