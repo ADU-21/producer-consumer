@@ -1,6 +1,5 @@
 package com.adu21.producerconsumer.service;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,7 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class QueryService {
 
+    // This can be extension point for accept different types of metrics with metadata like ops
     private final QueryObserver queryObserver;
 
     public String query(String query) {

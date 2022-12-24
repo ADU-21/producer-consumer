@@ -1,6 +1,5 @@
 package com.adu21.producerconsumer.service;
 
-import lombok.Builder;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +10,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class QueryObserver {
-
-    private final RecordDistributor recordDistributor;
+    private final MetricDistributor metricDistributor;
 
     public void update(String query) {
-        recordDistributor.enqueue(query);
+        metricDistributor.enqueue(query);
     }
 }

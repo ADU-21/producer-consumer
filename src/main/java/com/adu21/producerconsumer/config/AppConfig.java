@@ -2,7 +2,7 @@ package com.adu21.producerconsumer.config;
 
 import java.util.concurrent.Executors;
 
-import com.adu21.producerconsumer.service.RecordDistributor;
+import com.adu21.producerconsumer.service.MetricDistributor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -13,8 +13,8 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AppConfig {
     @Bean(initMethod = "start", destroyMethod = "stop")
-    RecordDistributor recordDistributor() {
-        return new RecordDistributor(Executors.newSingleThreadScheduledExecutor());
+    MetricDistributor metricDistributor() {
+        return new MetricDistributor(Executors.newSingleThreadScheduledExecutor());
     }
 
 }
