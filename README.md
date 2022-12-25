@@ -17,5 +17,7 @@ cd producer-consumer
 # Run test
 
 ```bash
-for q in {A..C}; do ( ab -n 5000 -c 5 localhost:8080/search?q=$q 1>/dev/null & ); done
+for q in {A..C}; do ( ab -n 10000 -c 5 localhost:8080/search?q=$q &>/dev/null & ); done && sleep 1 && tail -f metrics.txt
 ```
+
+You should be able to see metric statistics print from `metrics.txt` to your terminal.
