@@ -46,9 +46,11 @@ public class MetricConsumerImpl implements MetricConsumer {
 
     @Override
     public void start() {
+        log.info("MetricConsumer start");
         // jitter to avoid hosts in clusters write at same time
         int jitter = new Random().nextInt(MAX_JITTER_MILLISECONDS);
-        scheduledExecutorService.scheduleAtFixedRate(this::sendStatistics,
+        // publish metrics statistics every 1s
+        scheduledExecutorService.scheduleAtFixedRate(this::publishStatistics,
             WRITE_INTERVAL_AND_START_MILLISECONDS + jitter, WRITE_INTERVAL_AND_START_MILLISECONDS + jitter,
             TimeUnit.MILLISECONDS);
         serviceIsScheduled.set(true);
@@ -56,14 +58,16 @@ public class MetricConsumerImpl implements MetricConsumer {
 
     @Override
     public void stop() {
+        log.info("MetricConsumer stop");
         scheduledExecutorService.shutdown();
         serviceIsScheduled.set(false);
     }
 
-    private void sendStatistics() {
-        log.debug("sendStatistics");
+    private void publishStatistics() {
+        log.debug("publishStatistics");
         Map<String, Integer> metricStatics = metricCounter.drain();
         if (!CollectionUtils.isEmpty(metricStatics)) {
+            // publish via I/O operation
             staticsWriter.write(constructRecord(metricStatics));
         }
     }
