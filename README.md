@@ -1,6 +1,8 @@
 # Producer Consumer Demo
 
-Producer Consumer Solution using blocking Queue
+Producer Consumer Solution using blocking Queue:
+
+<https://blog.duyidong.com/2020/07/20/data-structure-and-time-complexity/>
 
 # Environment
 
